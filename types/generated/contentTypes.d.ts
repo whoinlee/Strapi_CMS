@@ -683,16 +683,17 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     singularName: 'category';
     pluralName: 'categories';
     displayName: 'Category';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
-    products: Attribute.Relation<
+    projects: Attribute.Relation<
       'api::category.category',
       'manyToMany',
-      'api::product.product'
+      'api::project.project'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -712,37 +713,43 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
 }
 
-export interface ApiProductProduct extends Schema.CollectionType {
-  collectionName: 'products';
+export interface ApiProjectProject extends Schema.CollectionType {
+  collectionName: 'projects';
   info: {
-    singularName: 'product';
-    pluralName: 'products';
-    displayName: 'product';
+    singularName: 'project';
+    pluralName: 'projects';
+    displayName: 'Project';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     title: Attribute.String & Attribute.Required & Attribute.Unique;
-    description: Attribute.Text;
-    price: Attribute.Decimal;
-    qty: Attribute.Integer;
+    header: Attribute.String;
+    descText: Attribute.String & Attribute.Unique;
+    descLink: Attribute.String;
+    thumbImg: Attribute.Media;
+    srcLink: Attribute.String & Attribute.Unique;
     categories: Attribute.Relation<
-      'api::product.product',
+      'api::project.project',
       'manyToMany',
       'api::category.category'
     >;
+    fullImg: Attribute.Media;
+    comments: Attribute.Text;
+    isActive: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::product.product',
+      'api::project.project',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::product.product',
+      'api::project.project',
       'oneToOne',
       'admin::user'
     > &
@@ -767,7 +774,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::category.category': ApiCategoryCategory;
-      'api::product.product': ApiProductProduct;
+      'api::project.project': ApiProjectProject;
     }
   }
 }
