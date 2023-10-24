@@ -739,6 +739,7 @@ export interface ApiProjectProject extends Schema.CollectionType {
     fullImg: Attribute.Media;
     comments: Attribute.Text;
     isActive: Attribute.Boolean;
+    order: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
